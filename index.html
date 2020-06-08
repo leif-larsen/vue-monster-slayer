@@ -23,7 +23,7 @@
                     <h1 class="text-center">YOU</h1>
                     <div class="healthbar">
                         <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="playerHealthBar">
-                            {{ playerHealth }}%
+                            {{ playerHealth }} HP
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <h1 class="text-center">MONSTER</h1>
                     <div class="healthbar">
                         <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="monsterHealthBar">
-                            {{ monsterHealth }}%
+                            {{ monsterHealth }} HP
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,11 @@
             <section class="row log" v-show="inGame && gameLog.length > 0">
                 <div class="small-12 columns">
                     <ul>
-                        <li v-for="log in gameLog">{{ log }}</li>
+                        <li v-for="data in gameLog">
+                            <span v-for="(log, key) in data" :class="{playerTurn: key === 'player', monsterTurn: key === 'monster'}">
+                                {{ log }}
+                            </span>
+                        </li>
                     </ul>
                 </div>
             </section>
