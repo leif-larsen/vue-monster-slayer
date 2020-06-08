@@ -22,7 +22,10 @@
                 <div class="small-6 columns">
                     <h1 class="text-center">YOU</h1>
                     <div class="healthbar">
-                        <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="playerHealthBar">
+                        <div 
+                            class="healthbar text-center" 
+                            style="background-color: green; margin: 0; color: white;" 
+                            :style="{width: playerHealth + '%'}">
                             {{ playerHealth }} HP
                         </div>
                     </div>
@@ -30,7 +33,10 @@
                 <div class="small-6 columns">
                     <h1 class="text-center">MONSTER</h1>
                     <div class="healthbar">
-                        <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="monsterHealthBar">
+                        <div 
+                            class="healthbar text-center" 
+                            style="background-color: green; margin: 0; color: white;" 
+                            :style="{width: monsterHealth + '%'}">
                             {{ monsterHealth }} HP
                         </div>
                     </div>
@@ -38,7 +44,7 @@
             </section>
             <section class="row controls" v-if="!inGame">
                 <div class="small-12 columns">
-                    <button id="start-game" @click="inGame = true">START NEW GAME</button>
+                    <button id="start-game" @click="startGame()">START NEW GAME</button>
                 </div>
             </section>
             <section class="row controls" v-else>
@@ -52,10 +58,9 @@
             <section class="row log" v-show="inGame && gameLog.length > 0">
                 <div class="small-12 columns">
                     <ul>
-                        <li v-for="data in gameLog">
-                            <span v-for="(log, key) in data" :class="{playerTurn: key === 'player', monsterTurn: key === 'monster'}">
-                                {{ log }}
-                            </span>
+                        <li v-for="data in gameLog" 
+                            :class="{'player-turn': data.isPlayer, 'monster-turn': !data.isPlayer}">
+                                {{ data.text }}
                         </li>
                     </ul>
                 </div>
